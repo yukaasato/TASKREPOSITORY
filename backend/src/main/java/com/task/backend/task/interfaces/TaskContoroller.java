@@ -11,30 +11,31 @@ import java.sql.Time;
 import java.util.List;
 import com.task.backend.common.entity.task.TaskEntity;
 import com.task.backend.task.application.TaskService;
+import com.task.backend.task.domain.TaskFactory;
 import com.task.backend.task.domain.request.TaskRequest;
+import com.task.backend.task.domain.response.TaskResponse;
 
 @RestController
 public class TaskContoroller {
     
-    @Autowired
-	TaskService taskService;
-
+    @Autowired private TaskService  taskService;
+    @Autowired private TaskFactory  taskFactory;
+    
     //全エンティティを返す
 	@GetMapping("/task") 
-	public List<TaskEntity>getTask(){
-        List<TaskEntity> task = taskService.getAll();
-        return task;
+	public List<TaskResponse>getTask(){
+        return taskFactory.createTaskResponse(taskService.getAll()); //FactoryにてList<taskEntity>をList<taskResponse>
     }
 
     //詳細データを1件返す
     @GetMapping("/{taskId}")
-	public TaskEntity showTaskDetail(@PathVariable int taskId) {
-        return taskService.getTaskEntity(taskId);
+	public TaskResponse showTaskDetail(@PathVariable int taskId) {
+         return taskFactory.createTaskRespone(taskService.getTaskEntity(taskId));
 	}
 
     //登録
 	@PostMapping("/task/new")
-	public TaskEntity registTask(@RequestBody TaskRequest taskRequest) {
+	public TaskResponse registTask(@RequestBody TaskRequest taskRequest) {
         
         String date = taskRequest.getDate();
         String time = taskRequest.getTime();
@@ -46,33 +47,26 @@ public class TaskContoroller {
         task.setTaskName(taskRequest.getName());
         task.setTaskPlace(taskRequest.getPlace());
   
-        //date:桁数一致していれば型のみ変換 2021-09-16
         if(date != null && date.length() == 10 ){
 			task.setTaskDate(Date.valueOf(date));
         }
-
-        //date:SQLの形式だったら、切り取って変換2021-09-16T15:00:00.000+00:00
         if(date != null && date.length() > 10){
            task.setTaskDate(Date.valueOf(date.substring(0,10)));
         }
-    
-        //time
+
         if(time != null && time.length()  == 5){
             task.setTaskTime(Time.valueOf(time + ":00"));
         }
-    
-        //time
         if(time != null && time.length()  == 8){
             task.setTaskTime(Time.valueOf(time));
         }
-
-        taskService.regist(task);
-		return task;
+       
+        return taskFactory.createTaskRespone(taskService.regist(task));
     }
 
     //更新
 	@PostMapping("/task/update")
-	public TaskEntity updateTask(@RequestBody TaskRequest taskRequest) {
+	public TaskResponse updateTask(@RequestBody TaskRequest taskRequest) {
         
         String date = taskRequest.getDate();
         String time = taskRequest.getTime();
@@ -85,24 +79,19 @@ public class TaskContoroller {
         task.setTaskName(taskRequest.getName());
         task.setTaskPlace(taskRequest.getPlace());
         
-        //date:桁数一致していれば型のみ変換 2021-09-16
         if(date != null && date.length() == 10 ){
 			task.setTaskDate(Date.valueOf(date));
         }
-        //date:SQLの形式だったら、切り取って変換2021-09-16T15:00:00.000+00:00
         if(date != null && date.length() > 10){
            task.setTaskDate(Date.valueOf(date.substring(0,10)));
         }
-        //time
         if(time != null && time.length()  == 5){
             task.setTaskTime(Time.valueOf(time + ":00"));
         }
-        //time
         if(time != null && time.length()  == 8){
             task.setTaskTime(Time.valueOf(time));
         }
-        taskService.update(task);
-		return task;
+		return taskFactory.createTaskRespone(taskService.update(task));
     }
 
     //削除
@@ -114,9 +103,9 @@ public class TaskContoroller {
 
     //完了
     @PostMapping("/task/done/{taskId}")
-	public TaskEntity taskDone(@PathVariable int taskId) {
+	public TaskResponse taskDone(@PathVariable int taskId) {
 		TaskEntity task = taskService.getTaskEntity(taskId);
         task.setCompleteFlag(!task.getCompleteFlag());
-		return taskService.done(task);    	
+		return taskFactory.createTaskRespone(taskService.done(task));    	
     }
 }

@@ -22,12 +22,12 @@ public class TaskService {
 	    return taskRepository.findByTaskId(taskId);
    }
    
-	public void regist(TaskEntity taskEntity) {
-		taskRepository.save(taskEntity);
+	public TaskEntity regist(TaskEntity taskEntity) {
+		return taskRepository.save(taskEntity);
     }
 
-    public void update(TaskEntity taskEntity) {
-		taskRepository.save(taskEntity);
+    public TaskEntity update(TaskEntity taskEntity) {
+		return taskRepository.save(taskEntity);
     }
 
     public void delete(TaskEntity taskEntity){
