@@ -20,16 +20,16 @@ public class TaskService {
     }
     public TaskEntity getTaskEntity(int taskId) {
 	    return taskRepository.findByTaskId(taskId);
-   }
-   
-	public TaskEntity regist(TaskEntity taskEntity) {
-		return taskRepository.save(taskEntity);
     }
-
-    public TaskEntity update(TaskEntity taskEntity) {
-		return taskRepository.save(taskEntity);
+    
+    public TaskEntity regist(TaskEntity taskEntity){
+        return taskRepository.save(taskEntity);
     }
-
+    
+    public TaskEntity update(TaskEntity taskEntity){
+        return taskRepository.save(taskEntity);
+    }
+ 
     public void delete(TaskEntity taskEntity){
         taskRepository.delete(taskEntity);
     }

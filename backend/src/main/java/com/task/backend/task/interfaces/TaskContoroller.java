@@ -21,12 +21,13 @@ public class TaskContoroller {
     @Autowired private TaskService  taskService;
     @Autowired private TaskFactory  taskFactory;
     
+    
     //全エンティティを返す
-	@GetMapping("/task") 
+    @GetMapping("/task") 
 	public List<TaskResponse>getTask(){
         return taskFactory.createTaskResponse(taskService.getAll()); 
     }
-
+    
     //詳細データを1件返す
     @GetMapping("/{taskId}")
 	public TaskResponse showTaskDetail(@PathVariable int taskId) {
@@ -34,8 +35,8 @@ public class TaskContoroller {
 	}
 
     //登録
-	@PostMapping("/task/new")
-	public TaskResponse registTask(@RequestBody TaskRequest taskRequest) {
+    @PostMapping("/task/new")
+    public TaskResponse registTask(@RequestBody TaskRequest taskRequest) {
         
         String date = taskRequest.getDate();
         String time = taskRequest.getTime();
@@ -65,7 +66,7 @@ public class TaskContoroller {
     }
 
     //更新
-	@PostMapping("/task/update")
+    @PostMapping("/task/update")
 	public TaskResponse updateTask(@RequestBody TaskRequest taskRequest) {
         
         String date = taskRequest.getDate();
