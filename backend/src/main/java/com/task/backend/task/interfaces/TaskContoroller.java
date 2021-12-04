@@ -17,20 +17,24 @@ import com.task.backend.task.domain.response.TaskResponse;
 
 @RestController
 public class TaskContoroller {
-    
+
+aaa
+    sss
+
+
     @Autowired private TaskService  taskService;
     @Autowired private TaskFactory  taskFactory;
     
     
     //全エンティティを返す
-    @GetMapping("/task") 
-	public List<TaskResponse>getTask(){
-        return taskFactory.createTaskResponse(taskService.getAll()); 
+    @GetMapping("/task")
+    public List<TaskResponse>getTask(){
+        return taskFactory.createTaskResponse(taskService.getAll());
     }
-    
+        
     //詳細データを1件返す
     @GetMapping("/{taskId}")
-	public TaskResponse showTaskDetail(@PathVariable int taskId) {
+    public TaskResponse showTaskDetail(@PathVariable int taskId) {
          return taskFactory.createTaskRespone(taskService.getTaskEntity(taskId));
 	}
 
@@ -64,10 +68,10 @@ public class TaskContoroller {
        
         return taskFactory.createTaskRespone(taskService.regist(task));
     }
-
+    
     //更新
     @PostMapping("/task/update")
-	public TaskResponse updateTask(@RequestBody TaskRequest taskRequest) {
+    public TaskResponse updateTask(@RequestBody TaskRequest taskRequest) {
         
         String date = taskRequest.getDate();
         String time = taskRequest.getTime();
