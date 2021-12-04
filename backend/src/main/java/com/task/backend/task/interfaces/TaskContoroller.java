@@ -18,10 +18,6 @@ import com.task.backend.task.domain.response.TaskResponse;
 @RestController
 public class TaskContoroller {
 
-aaa
-    sss
-
-
     @Autowired private TaskService  taskService;
     @Autowired private TaskFactory  taskFactory;
     
@@ -36,7 +32,7 @@ aaa
     @GetMapping("/{taskId}")
     public TaskResponse showTaskDetail(@PathVariable int taskId) {
          return taskFactory.createTaskRespone(taskService.getTaskEntity(taskId));
-	}
+    }
 
     //登録
     @PostMapping("/task/new")
@@ -108,8 +104,8 @@ aaa
 
     //完了
     @PostMapping("/task/done/{taskId}")
-	public TaskResponse taskDone(@PathVariable int taskId) {
-		TaskEntity task = taskService.getTaskEntity(taskId);
+    public TaskResponse taskDone(@PathVariable int taskId) {
+        TaskEntity task = taskService.getTaskEntity(taskId);
         task.setCompleteFlag(!task.getCompleteFlag());
 		return taskFactory.createTaskRespone(taskService.done(task));    	
     }
