@@ -19,7 +19,7 @@ public class TaskFactory {
 
     public List<TaskResponse> createTaskResponse(List<TaskEntity> taskList) {
         return taskList.stream().map(taskEntity 
-        -> mapper.map(taskEntity, TaskResponse.class)).collect(Collectors.toList());
+            -> mapper.map(taskEntity, TaskResponse.class)).collect(Collectors.toList());
     }
 
 

@@ -24,7 +24,7 @@ public class TaskContoroller {
     //全エンティティを返す
 	@GetMapping("/task") 
 	public List<TaskResponse>getTask(){
-        return taskFactory.createTaskResponse(taskService.getAll()); //FactoryにてList<taskEntity>をList<taskResponse>
+        return taskFactory.createTaskResponse(taskService.getAll()); 
     }
 
     //詳細データを1件返す
