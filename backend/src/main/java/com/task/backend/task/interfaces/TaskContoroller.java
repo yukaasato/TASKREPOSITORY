@@ -107,6 +107,6 @@ public class TaskContoroller {
     public TaskResponse taskDone(@PathVariable int taskId) {
         TaskEntity task = taskService.getTaskEntity(taskId);
         task.setCompleteFlag(!task.getCompleteFlag());
-		return taskFactory.createTaskRespone(taskService.done(task));    	
+        return taskFactory.createTaskRespone(taskService.done(task));    	
     }
 }
