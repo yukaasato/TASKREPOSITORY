@@ -21,9 +21,4 @@ public class TaskFactory {
         return taskList.stream().map(taskEntity 
             -> mapper.map(taskEntity, TaskResponse.class)).collect(Collectors.toList());
     }
-
-
-    // 解説
-    // Factoryクラスでやること
-    // ModeloMapperを利用してEntitiyをResponseに変換してControllerに返すこと
 }
