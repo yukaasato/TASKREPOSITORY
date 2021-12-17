@@ -7,6 +7,7 @@ import com.task.backend.common.entity.task.TaskEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import com.task.backend.task.domain.TaskRepository ;
 
 @Service
 @Transactional
@@ -18,6 +19,7 @@ public class TaskService {
     public List<TaskEntity> getAll(){
         return taskRepository.findAll(); 
     }
+       
     public TaskEntity getTaskEntity(int taskId) {
 	    return taskRepository.findByTaskId(taskId);
     }
